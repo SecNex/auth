@@ -21,9 +21,9 @@ type ApiServer struct {
 	Router    *mux.Router
 }
 
-func NewApiServer(host *string, port *int) *ApiServer {
+func NewApiServer(host *string, port *int, dbHost string, dbPort int, dbUser string, dbPassword string, dbName string) *ApiServer {
 	databases := make(map[string]*database.Database)
-	databases["certmanager"] = database.NewConnection("localhost", 5432, "postgres", "postgres", "cert")
+	databases["auth"] = database.NewConnection(dbHost, dbPort, dbUser, dbPassword, dbName)
 	return &ApiServer{
 		Host:      host,
 		Port:      port,
